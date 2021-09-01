@@ -22,7 +22,7 @@
     "gulp-sourcemaps": "^2.6.5",
     "gulp-uglify": "^3.0.2",
     "merge": "^1.2.1",
-    "ucf-athena-framework": "^1.0.7"
+    "ucf-athena-framework": "^1.1.0"
   },
   "browserslist": [
     "last 2 versions"
