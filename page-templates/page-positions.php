@@ -122,7 +122,7 @@ $query = new WP_Query( $args );
 
 			<div class="col-md-6 col-lg-4 mb-4">
 				<div class="card h-100 border-0 box-shadow-soft d-flex flex-column justify-content-start">
-					<?php if ( get_field( 'research_video_url', $post->ID ) ): ?>
+					<?php if ( get_field( 'research_video_url', $post->ID ) && (get_field( 'research_video_url', $post->ID ) != get_field( 'research_video_image', $post->ID )) ): ?>
 						<div class="embed-responsive embed-responsive-16by9">
 							<iframe
 								class="embed-responsive-item"
@@ -136,6 +136,10 @@ $query = new WP_Query( $args );
 								>
 							</iframe>
                         </div>
+					<?php else: ?>
+						<?php if ( get_field( 'research_video_image', $post->ID ) ): ?>
+							<img class="card-img-top" src="<?php echo get_field( 'research_video_image', $post->ID ); ?>">
+						<?php endif; ?>
 					<?php endif; ?>
 					<div class="card-block  f-flex flex-column align-items-start">
 						<h5 class="mb-1">
