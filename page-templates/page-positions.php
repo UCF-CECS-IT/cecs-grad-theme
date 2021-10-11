@@ -41,6 +41,14 @@ if ( $_GET['degree_programs'] ?? false ) {
     );
 }
 
+if ( $_GET['keyword'] ?? false ) {
+    $args['meta_query'][] = array(
+        'key' => 'research_keywords',
+        'value' => $_GET['keyword'],
+        'compare' => 'like',
+    );
+}
+
 $additionalParamenters = '';
 
 if ($_GET['department'] ?? false) {
@@ -49,6 +57,10 @@ if ($_GET['department'] ?? false) {
 
 if ($_GET['degree_programs'] ?? false) {
     $additionalParamenters .= 'degree_programs=' . urlencode($_GET['degree_programs']) . '&';
+}
+
+if ($_GET['keyword'] ?? false) {
+    $additionalParamenters .= 'keyword=' . urlencode($_GET['keyword']) . '&';
 }
 
 $query = new WP_Query( $args );
@@ -65,6 +77,10 @@ $query = new WP_Query( $args );
 
 	<form method="GET" action="">
         <div class="form-group row justify-content-center mt-2 mb-4 align-items-center">
+			<label for="search_key" class="col-xl-1 col-lg-2 col-form-label text-xl-right mt-2 pr-0 smaller">Keyword:</label>
+            <div class="col-xl-2 col-lg-4 mt-2">
+                <input class="form-control form-control-sm" type="text" name="keyword" <?php if( ($_GET['keyword'] ?? null) ) echo 'value="' . $_GET['keyword'] . '"'; ?>>
+            </div>
             <label for="search_key" class="col-xl-1 col-lg-2 col-form-label text-xl-right mt-2 pr-0 smaller">Department:</label>
             <div class="col-xl-2 col-lg-4 mt-2">
                 <select id="search_key" class="form-control form-control-sm" name="department">
@@ -98,13 +114,13 @@ $query = new WP_Query( $args );
     </form>
 </div>
 
-<div class="container">
+<div class="container-full">
 	<!-- Results -->
-	<div class="row">
+	<div class="row mx-0">
 
 		<?php foreach ( $query->posts as $post ): ?>
 
-			<div class="col-md-6 mb-4">
+			<div class="col-md-6 col-lg-4 mb-4">
 				<div class="card h-100 border-0 box-shadow-soft d-flex flex-column justify-content-start">
 					<?php if ( get_field( 'research_video_url', $post->ID ) ): ?>
 						<div class="embed-responsive embed-responsive-16by9">
