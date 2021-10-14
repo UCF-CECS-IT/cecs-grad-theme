@@ -9,7 +9,7 @@ the_post();
 $args = [
     'post_type'=> 'research_position',
     'order'    => 'ASC',
-	'posts_per_page' => 20,
+	'posts_per_page' => 3,
     'paged' => $_GET['page_number'] ?? 1
 ];
 
@@ -122,26 +122,37 @@ $query = new WP_Query( $args );
 
 			<div class="col-md-6 col-lg-4 mb-4">
 				<div class="card h-100 border-0 box-shadow-soft d-flex flex-column justify-content-start">
-					<?php if ( get_field( 'research_video_url', $post->ID ) && (get_field( 'research_video_url', $post->ID ) != get_field( 'research_video_image', $post->ID )) ): ?>
-						<div class="embed-responsive embed-responsive-16by9">
-							<iframe
-								class="embed-responsive-item"
-								src="<?php echo get_field( 'research_video_url', $post->ID ); ?>"
-
-								<?php if ( get_field( 'research_video_image', $post->ID ) ): ?>
-									poster="<?php echo get_field( 'research_video_image', $post->ID ); ?>"
-								<?php endif; ?>
-
-								controls allowfullscreen
-								>
-							</iframe>
+					<?
+						$video = get_field( 'research_video_url', $post->ID );
+						$poster = get_field( 'research_video_image', $post->ID );
+						$youtubeLink = strstr($video, 'youtube');
+					?>
+					<?php if ( $video && ( $video != $poster) ): ?>
+						<?php if ( $poster ): ?>
+							<!-- Poster -->
+							<div class="embed-poster">
+								<div class="embed-play"></div>
+								<img class="embed-img w-100 img-fluid" src="<?php echo $poster; ?>">
+							</div>
+						<?php endif; ?>
+						<div class="embed-responsive embed-responsive-16by9 <? if ($poster) echo 'd-none'; ?>">
+							<?php if ( $youtubeLink ): ?>
+								<iframe
+									class="embed-responsive-item"
+									src="<?php echo $video; ?>"
+									controls allowfullscreen
+									>
+								</iframe>
+							<?php else: ?>
+								<video src="<?php echo $video; ?>" controls allowfullscreen></video>
+							<?php endif; ?>
                         </div>
 					<?php else: ?>
-						<?php if ( get_field( 'research_video_image', $post->ID ) ): ?>
-							<img class="card-img-top" src="<?php echo get_field( 'research_video_image', $post->ID ); ?>">
+						<?php if ( $poster ): ?>
+							<img class="card-img-top" src="<?php echo $poster; ?>">
 						<?php endif; ?>
 					<?php endif; ?>
-					<div class="card-block  f-flex flex-column align-items-start">
+					<div class="card-block f-flex flex-column align-items-start">
 						<h5 class="mb-1">
 							<?php echo get_field( 'research_title', $post->id ); ?>
 							<br>
@@ -228,7 +239,7 @@ $query = new WP_Query( $args );
         <ul class="pagination justify-content-center">
             <li class="page-item"><a class="page-link" href="?<?php echo $additionalParamenters; ?>page_number=1">First</a></li>
 
-            <?php for ($i=2; $i < $query->max_num_pages; $i++): ?>
+            <?php for ($i=1; $i < $query->max_num_pages + 1; $i++): ?>
                 <li class="page-item"><a class="page-link" href="?<?php echo $additionalParamenters; ?>page_number=<?php echo $i; ?>"><?php echo $i; ?></a></li>
             <?php endfor; ?>
 
