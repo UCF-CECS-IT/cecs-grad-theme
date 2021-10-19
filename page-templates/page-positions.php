@@ -11,7 +11,7 @@ $page = $_GET['page_number'] ?? 1;
 $args = [
     'post_type'=> 'research_position',
     'order'    => 'DESC',
-	'posts_per_page' => 3,
+	'posts_per_page' => 20,
     'paged' => $page
 ];
 
