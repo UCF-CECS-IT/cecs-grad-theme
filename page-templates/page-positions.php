@@ -6,24 +6,30 @@
 get_header();
 the_post();
 
+$page = $_GET['page_number'] ?? 1;
+
 $args = [
     'post_type'=> 'research_position',
-    'order'    => 'ASC',
+    'order'    => 'DESC',
 	'posts_per_page' => 3,
-    'paged' => $_GET['page_number'] ?? 1
+    'paged' => $page
 ];
 
-/**
- * Add the relevant search terms as optional meta queries
- */
+// check for stick post(s)
+$stickyArgs = array(
+	'post_type'=> 'research_position',
+	'order'    => 'ASC',
+	'meta_query' => array(
+		array(
+			'key' => 'research_sticky',
+			'value' => '1',
+			'compare' => '=',
+		)
+	)
+);
 
-// if ( ($_GET['search_key'] ?? false) && ($_GET['search_value'] ?? false)) {
-//     $args['meta_query'][] = array(
-//         'key' => $_GET['research_department'],
-//         'value' => $_GET['search_value'],
-//         'compare' => 'LIKE',
-//     );
-// }
+$stickyQuery = new WP_Query( $stickyArgs );
+
 
 if ( $_GET['department'] ?? false ) {
     $args['meta_query'][] = array(
@@ -52,18 +58,32 @@ if ( $_GET['keyword'] ?? false ) {
 $additionalParamenters = '';
 
 if ($_GET['department'] ?? false) {
-    $additionalParamenters .= 'department=' . urlencode($_GET['department']) . '&';
+    $additionalParamenters .= 'department=' . urlencode( $_GET['department'] ) . '&';
 }
 
 if ($_GET['degree_programs'] ?? false) {
-    $additionalParamenters .= 'degree_programs=' . urlencode($_GET['degree_programs']) . '&';
+    $additionalParamenters .= 'degree_programs=' . urlencode( $_GET['degree_programs'] ) . '&';
 }
 
 if ($_GET['keyword'] ?? false) {
-    $additionalParamenters .= 'keyword=' . urlencode($_GET['keyword']) . '&';
+    $additionalParamenters .= 'keyword=' . urlencode( $_GET['keyword'] ) . '&';
 }
 
 $query = new WP_Query( $args );
+$posts = $query->posts;
+
+// Prepend the sticky post if on page 1
+if ( $page == 1 ) {
+	$posts = array_merge( $stickyQuery->posts, $posts );
+	$posts = array_unique( $posts, SORT_REGULAR );
+
+// Remove the sticky post if on subsequent pages to avoid duplication
+} else {
+	foreach( $stickyQuery->posts as $stickyPost ) {
+		$duplicate = array_search( $stickyPost, $posts );
+		unset( $posts[$duplicate] );
+	}
+}
 
 ?>
 
@@ -118,7 +138,7 @@ $query = new WP_Query( $args );
 	<!-- Results -->
 	<div class="row mx-0">
 
-		<?php foreach ( $query->posts as $post ): ?>
+		<?php foreach ( $posts as $post ): ?>
 
 			<div class="col-md-6 col-lg-4 mb-4">
 				<div class="card h-100 border-0 box-shadow-soft d-flex flex-column justify-content-start">
