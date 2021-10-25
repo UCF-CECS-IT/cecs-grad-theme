@@ -11,3 +11,4 @@
 
 // Require your theme's custom script files here
 // =require research-positions.js
+// =require rss-feed.js

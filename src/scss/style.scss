@@ -65,3 +65,14 @@
 .embed-img {
   z-index: 2;
 }
+
+.ucf-rss-thesis-link {
+  @include hover-focus {
+    text-decoration: none;
+
+    .ucf-rss-thesis-title {
+      text-decoration: underline;
+    }
+  }
+}
+
