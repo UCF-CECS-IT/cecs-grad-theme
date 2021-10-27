@@ -11,3 +11,4 @@ include_once CECS_GRAD_DIR . 'includes/custom-post-types.php';
 include_once CECS_GRAD_DIR . 'includes/custom-rss-layout.php';
 
 // Add other includes to this file as needed.
+include_once CECS_GRAD_DIR . 'includes/research-position.php';

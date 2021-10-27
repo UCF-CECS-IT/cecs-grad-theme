@@ -28,32 +28,45 @@ $stickyArgs = array(
 	)
 );
 
-$stickyQuery = new WP_Query( $stickyArgs );
-
-
+/**
+ * For each filter, add the same query to the stickyArgs - this will remove
+ * sticky results when they do not match filter criteria, but leave them in
+ * the top position when they do.
+ */
 if ( $_GET['department'] ?? false ) {
-    $args['meta_query'][] = array(
+	$departmentFilter = array(
         'key' => 'research_department',
         'value' => $_GET['department'],
         'compare' => '=',
     );
+
+    $args['meta_query'][] = $departmentFilter;
+	$stickyArgs['meta_query'][] = $departmentFilter;
 }
 
 if ( $_GET['degree_programs'] ?? false ) {
-    $args['meta_query'][] = array(
+    $programFilter = array(
         'key' => 'research_degree_programs',
         'value' => $_GET['degree_programs'],
         'compare' => 'like',
     );
+
+	$args['meta_query'][] = $programFilter;
+	$stickyArgs['meta_query'][] = $programFilter;
 }
 
 if ( $_GET['keyword'] ?? false ) {
-    $args['meta_query'][] = array(
+    $keywordFilter = array(
         'key' => 'research_keywords',
         'value' => $_GET['keyword'],
         'compare' => 'like',
     );
+
+	$args['meta_query'][] = $keywordFilter;
+	$stickyArgs['meta_query'][] = $keywordFilter;
 }
+
+$stickyQuery = new WP_Query( $stickyArgs );
 
 $additionalParamenters = '';
 
@@ -72,8 +85,8 @@ if ($_GET['keyword'] ?? false) {
 $query = new WP_Query( $args );
 $posts = $query->posts;
 
-// Prepend the sticky post if on page 1
-if ( $page == 1 ) {
+// Prepend the sticky post if on page 1 and has no filters
+if ( $page == 1  ) {
 	$posts = array_merge( $stickyQuery->posts, $posts );
 	$posts = array_unique( $posts, SORT_REGULAR );
 
