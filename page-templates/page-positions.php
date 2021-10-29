@@ -100,6 +100,10 @@ if ( $page == 1  ) {
 
 ?>
 
+<div class="container">
+	<?php the_content(); ?>
+</div>
+
 <div class="container-full px-5 mt-4 mt-sm-5 mb-2 pb-sm-4">
     <!-- Search Bar -->
     <div class="row">
