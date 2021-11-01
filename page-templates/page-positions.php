@@ -138,7 +138,7 @@ if ( $page == 1  ) {
 					<option <?php if( ($_GET['degree_programs'] ?? null) == 'Postdoc') echo 'selected'; ?> value="Postdoc">Postdoc</option>
 					<option <?php if( ($_GET['degree_programs'] ?? null) == 'PhD') echo 'selected'; ?> value="PhD">Doctoral (PhD)</option>
                     <option <?php if( ($_GET['degree_programs'] ?? null) == 'MS') echo 'selected'; ?> value="MS">Master's (MS)</option>
-					<option <?php if( ($_GET['degree_programs'] ?? null) == 'Honors') echo 'selected'; ?> value="Honors">Honors College/Honors-in-the-Major</select>
+					<option <?php if( ($_GET['degree_programs'] ?? null) == 'Honors') echo 'selected'; ?> value="Honors">Honors College/Honors-in-the-Major</option>
                     <option <?php if( ($_GET['degree_programs'] ?? null) == 'Undergrad') echo 'selected'; ?> value="Undergrad">Undergrad</option>
 
                 </select>
