@@ -131,14 +131,16 @@ if ( $page == 1  ) {
                 </select>
             </div>
 
-			<label for="search_key" class="col-xl-1 col-lg-2 col-form-label text-xl-right mt-2 pr-0 smaller">Program:</label>
+			<label for="search_key" class="col-xl-1 col-lg-2 col-form-label text-xl-right mt-2 pr-0 smaller">Level:</label>
             <div class="col-xl-2 col-lg-4 mt-2">
                 <select id="search_key" class="form-control form-control-sm" name="degree_programs">
                     <option></option>
-					<option <?php if( ($_GET['degree_programs'] ?? null) == 'PhD') echo 'selected'; ?> value="PhD">PhD</option>
-                    <option <?php if( ($_GET['degree_programs'] ?? null) == 'MS') echo 'selected'; ?> value="MS">MS</option>
+					<option <?php if( ($_GET['degree_programs'] ?? null) == 'Postdoc') echo 'selected'; ?> value="Postdoc">Postdoc</option>
+					<option <?php if( ($_GET['degree_programs'] ?? null) == 'PhD') echo 'selected'; ?> value="PhD">Doctoral (PhD)</option>
+                    <option <?php if( ($_GET['degree_programs'] ?? null) == 'MS') echo 'selected'; ?> value="MS">Master's (MS)</option>
+					<option <?php if( ($_GET['degree_programs'] ?? null) == 'Honors') echo 'selected'; ?> value="Honors">Honors College/Honors-in-the-Major</select>
                     <option <?php if( ($_GET['degree_programs'] ?? null) == 'Undergrad') echo 'selected'; ?> value="Undergrad">Undergrad</option>
-                    <option <?php if( ($_GET['degree_programs'] ?? null) == 'Postdoc') echo 'selected'; ?> value="Postdoc">Postdoc</option>
+
                 </select>
             </div>
 
