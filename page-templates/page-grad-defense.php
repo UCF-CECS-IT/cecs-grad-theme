@@ -26,7 +26,7 @@ $title = $year ? "$year Defenses" : 'Upcoming Defenses';
             <div class="col-lg-9 col-md-12">
                 <h2 class="mt-3"><?php echo $title; ?></h2>
 
-                <p class="lead"><a href="http://www.cecs.ucf.edu/current-students/college-of-engineering-and-computer-science-policy-on-dissertationthesis-defenses/">College Policy on Dissertation/Thesis Defenses</a></p>
+                <p class="lead"><a href="https://grad.cecs.ucf.edu/college-of-engineering-and-computer-science-policy-on-dissertation-thesis-defenses/">College Policy on Dissertation/Thesis Defenses</a></p>
 
 				<?php if ( $year ): ?>
 					<p><a href="/grad-defenses/">Back to Upcoming Defenses</a></p>
