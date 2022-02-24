@@ -36,10 +36,10 @@ $title = $year ? "$year Defenses" : 'Upcoming Defenses';
 
                 <?php foreach($submissionArray as $defenseDate => $presentations): ?>
                     <div class="card mt-3 mb-4">
-                        <h3 class="card-header bg-primary-lighter"><?php echo $defenseDate; ?></h3>
+                        <h5 class="card-header bg-primary-lighter"><?php echo $defenseDate; ?></h5>
                         <ul class="list-group list-group-flush">
                             <?php foreach($presentations as $presentation): ?>
-                                <li class='list-group-item'><a class='nobold' href="/graddefense-old/pdf/<?php echo $presentation['ID'];?>"><?php echo $presentation['department']; ?> Defense - <?php echo $presentation['fname']; ?> <?php echo $presentation['lname']; ?></a></li>
+                                <li class='list-group-item font-size-sm'><a class='nobold' href="https://www.cecs.ucf.edu/graddefense-old/pdf/<?php echo $presentation['ID'];?>"><?php echo $presentation['department']; ?> Defense - <?php echo $presentation['fname']; ?> <?php echo $presentation['lname']; ?></a></li>
                             <?php endforeach; ?>
                         </ul>
                     </div>
