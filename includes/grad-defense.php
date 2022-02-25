@@ -23,7 +23,7 @@ function grad_defense_end_date($year = null) {
 
 function get_grad_defenses( $connection, $start, $end = null ) {
 	if ($end) {
-		mysqli_query($connection,"SELECT * FROM `submissions` WHERE Approved = 'Yes' AND Date < '$end' AND Date > '$start' ORDER BY Date desc");
+		return mysqli_query($connection,"SELECT * FROM `submissions` WHERE Approved = 'Yes' AND Date < '$end' AND Date > '$start' ORDER BY Date desc");
 	} else {
 		return mysqli_query($connection,"SELECT * FROM `submissions` WHERE Approved = 'Yes' AND Date >= '$start' ORDER BY Date asc");
 	}
@@ -46,7 +46,6 @@ function grad_defenses_build_array( $result ) {
 
     return $submissionArray;
 }
-
 
 function grad_defense_year(string $slug) {
 	$slugArray = explode('-', $slug);
