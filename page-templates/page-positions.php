@@ -66,6 +66,17 @@ if ( $_GET['keyword'] ?? false ) {
 	$stickyArgs['meta_query'][] = $keywordFilter;
 }
 
+if ( $_GET['advisor'] ?? false ) {
+    $keywordFilter = array(
+        'key' => 'research_advisor_name',
+        'value' => $_GET['advisor'],
+        'compare' => 'like',
+    );
+
+	$args['meta_query'][] = $keywordFilter;
+	$stickyArgs['meta_query'][] = $keywordFilter;
+}
+
 $stickyQuery = new WP_Query( $stickyArgs );
 
 $additionalParamenters = '';
@@ -106,21 +117,18 @@ if ( $page == 1  ) {
 
 <div class="container-full px-5 mt-4 mt-sm-5 mb-2 pb-sm-4">
     <!-- Search Bar -->
-    <div class="row">
-        <div class="col-xl-1 col-lg-2 offset-xl-1 ">
-            <h5 class="heading-underline mb-0">Filter</h5>
-        </div>
-    </div>
+	<h5 class="heading-underline mb-0">Filter</h5>
 
 	<form method="GET" action="">
         <div class="form-group row justify-content-center mt-2 mb-4 align-items-center">
-			<label for="search_key" class="col-xl-1 col-lg-2 col-form-label text-xl-right mt-2 pr-0 smaller">Keyword:</label>
-            <div class="col-xl-2 col-lg-4 mt-2">
-                <input class="form-control form-control-sm" type="text" name="keyword" <?php if( ($_GET['keyword'] ?? null) ) echo 'value="' . $_GET['keyword'] . '"'; ?>>
-            </div>
-            <label for="search_key" class="col-xl-1 col-lg-2 col-form-label text-xl-right mt-2 pr-0 smaller">Department:</label>
-            <div class="col-xl-2 col-lg-4 mt-2">
-                <select id="search_key" class="form-control form-control-sm" name="department">
+			<div class="form-group col-lg-4">
+				<label for="keyword" class="form-label font-size-sm">Keyword:</label>
+				<input class="form-control form-control-sm" type="text" name="keyword" <?php if( ($_GET['keyword'] ?? null) ) echo 'value="' . $_GET['keyword'] . '"'; ?>>
+			</div>
+
+			<div class="form-group col-lg-4 col-md-6">
+				<label for="department" class="form-label font-size-sm">Department:</label>
+				<select id="search_key" class="form-control form-control-sm" name="department">
                     <option></option>
 					<option <?php if( ($_GET['department'] ?? null) == 'CECE') echo 'selected'; ?> value="CECE">CECE</option>
                     <option <?php if( ($_GET['department'] ?? null) == 'CS') echo 'selected'; ?> value="CS">CS</option>
@@ -129,23 +137,26 @@ if ( $page == 1  ) {
                     <option <?php if( ($_GET['department'] ?? null) == 'MAE') echo 'selected'; ?> value="MAE">MAE</option>
                     <option <?php if( ($_GET['department'] ?? null) == 'MSE') echo 'selected'; ?> value="MSE">MSE</option>
                 </select>
-            </div>
+			</div>
 
-			<label for="search_key" class="col-xl-1 col-lg-2 col-form-label text-xl-right mt-2 pr-0 smaller">Level:</label>
-            <div class="col-xl-2 col-lg-4 mt-2">
-                <select id="search_key" class="form-control form-control-sm" name="degree_programs">
+			<div class="form-group col-lg-4 col-md-6">
+				<label for="degree_programs" class="form-label font-size-sm">Level:</label>
+				<select id="search_key" class="form-control form-control-sm" name="degree_programs">
                     <option></option>
 					<option <?php if( ($_GET['degree_programs'] ?? null) == 'Postdoc') echo 'selected'; ?> value="Postdoc">Postdoc</option>
 					<option <?php if( ($_GET['degree_programs'] ?? null) == 'PhD') echo 'selected'; ?> value="PhD">Doctoral (PhD)</option>
                     <option <?php if( ($_GET['degree_programs'] ?? null) == 'MS') echo 'selected'; ?> value="MS">Master's (MS)</option>
 					<option <?php if( ($_GET['degree_programs'] ?? null) == 'Honors') echo 'selected'; ?> value="Honors">Honors College/Honors-in-the-Major</option>
                     <option <?php if( ($_GET['degree_programs'] ?? null) == 'Undergrad') echo 'selected'; ?> value="Undergrad">Undergrad</option>
-
                 </select>
-            </div>
+			</div>
 
+			<div class="form-group col-lg-4 col-md-6">
+				<label for="advisor" class="form-label font-size-sm">Advisor:</label>
+				<input class="form-control form-control-sm" type="text" name="advisor" <?php if( ($_GET['advisor'] ?? null) ) echo 'value="' . $_GET['advisor'] . '"'; ?>>
+			</div>
 
-            <div class="col-xl-2 col-lg-4 mt-2">
+            <div class="col-lg-4 col-md-6 text-center mt-2 align-items-center">
 				<a class="btn btn-default btn-sm" href="<?php echo get_permalink(); ?>">Reset</a>
                 <button type="submit" class="btn btn-sm btn-primary">Filter</button>
             </div>
